@@ -95,8 +95,8 @@ console.log('per2', per2.run())
 */
 class Person3 {
     public name: string; //公有属性
-    protected age: string;
-    private sex: string;
+    protected age: string;//保护
+    private sex: string;//私有
     constructor(name: string, age: string, sex: string) {
         this.name = name;
         this.age = age;
@@ -111,7 +111,9 @@ class Person3 {
     run(): string {
         return `${this.name}在运动`
     }
-
+    private() {
+        console.log(`私有：性别${this.sex}`);
+    }
 }
 
 class Web3 extends Person3 {
@@ -130,6 +132,7 @@ class Web3 extends Person3 {
     protected() {
         console.log(`保护：年纪${this.age}`);
     }
+
 }
 
 var per3 = new Web3('李四', '25', '男');
@@ -141,11 +144,11 @@ console.log('per3', per3.run())
 
 //注意（在子类里面访问和在子类的实例里访问是两回事）
 
-//  public : 公有     在类里面，子类、类外面都可以访问
+//  public : 公有     在当前类里面，子类、类外面都可以访问
 console.log('public', per4.nameCall(), per3.run(), namePublic,)
 
-//  protected： 保护类型   在类里面，子类里面可以访问、在类外面无法访问
+//  protected： 保护类型   在当前类里面，子类里面可以访问、在类外面无法访问
 console.log('protected', per4.howOld(), per3.howOld()) //此处虽然报错，但是不影响打印，ts的本质还是js，非js语法错误不会阻塞运行
 
-//    private： 私有     在类里面可以访问，子类、类外面都没法访问
-console.log('private',)
+//    private： 私有     在当前类里面可以访问，子类、类外面都没法访问
+console.log('private', per4.private())
