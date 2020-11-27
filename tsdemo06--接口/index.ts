@@ -1,105 +1,157 @@
 /*
  * @Author: your name
- * @Date: 2020-11-20 10:45:13
- * @LastEditTime: 2020-11-20 14:30:58
+ * @Date: 2020-11-20 14:52:21
+ * @LastEditTime: 2020-11-27 11:26:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \typescript_demo\tsdemo05--类 的静态属性\index.ts
+ * @FilePath: \typescript_demo\tsdemo06--接口\index.ts
  */
-//静态修饰符
-class Person {
-    public name: string;
-    static age: number = 20; //静态属性
-    constructor(name: string) {
-        this.name = name;
-    }
-    run() {  /* 实例化以后才调用的方法 */
-        console.log(`${this.name}在运动`)
-    }
-    work() {
-        console.log(`${this.name}在工作`)
-    }
-    static print() {  //静态方法
-        console.log('print方法' + Person.age)
-    }
+/*
+    1.属性接口
+    2.函数接口
+    3.可索引接口
+    4.类类型接口
+    5.接口扩展
+
+*/
+// 鸭式子类型辨型法
+/*
+    接口的作用，在面向对象编程中，接口是一种规范定义，它定义了行为和动作的规范，在程序设计里面，接口起到一种限制和规范的作用，
+    接口定义了某一批类所需要遵守的规范，接口不关心这些类的内部状态数据，也不关心这些类里面的方法的实现细节，它只规定这批类里
+    必须提供某些方法，提供这些方法的类就可以满足实际需要。typecript中接口近似于java，同时还增加了更灵活的接口类型，包括属性、
+    函数、可索引和类等
+*/
+
+
+
+function printLabel(labelInfo: { label: string }): void {
+    console.log('printLabel')
 }
 
-var p = new Person('张三');
-Person.print();
-console.log(Person.age);
+// printLabel('哈哈哈'); //错
+// printLabel({name:'hhh'});//错
+printLabel({ label: 'hhh' });//正确
 
 
+/* //1.属性接口 */
+
+//ts中自定义方法传入参数对json进行约束
+
+interface FullName {
+    firstName: string;   //注意：分号结束
+    secondName?: string; //接口的可选属性
+}
 
 
-//多态：父类定义一个方法不去实现，让继承它的子类去实现，每一个子类有不同的表现（多继承）
-//多态属于继承
+function printName(name: FullName) {
+    console.log(name.firstName + '--' + name.secondName)
+}
 
-class Animal {
+
+// printName({ age: '20'， firstName: '张', secondName: '三' }) 错
+var obj = { firstName: '张', secondName: '三' }
+var obj1 = { firstName: '张' }
+//推荐这种写法，将参数对象定义在外部,传入的参数必须包含属性接口的定义
+printName(obj)
+printName(obj1)
+
+/* 2:函数类型接口: 对方法传入的参数 以及返回值进行约束 */
+
+//加密的函数接口
+interface encrypt {
+    (key: string, value: string): string;
+}
+var md5: encrypt = function (key: string, value: string): string {
+    return key + value;
+}
+
+console.log(md5('name', '张三'))
+
+/* //3.可索引接口: 数组、对象的约束（不常用）/ */
+interface UserArr {
+    [index: number]: string; //每个元素都是string类型
+}
+var arr: UserArr = ['a', 'b']
+
+interface UserObj {
+    [index: string]: string //因为对象的元素索引是字符串
+}
+
+/* //4.类类型接口（和抽象类有点类似） */
+interface Animal {
+    name: string;
+    eat(str: string): void;
+}
+
+class Dogs implements Animal {
     name: string;
     constructor(name: string) {
-        this.name = name
-    }
-    eat() { //具体吃什么不知道，可以有多种实现，这个由它的子类来完成
-        console.log('吃的方法')
-    }
-}
-
-class Dog extends Animal {
-    constructor(name: string) {
-        super(name)
-    }
+        this.name = name;
+    };
     eat() {
-        return `${this.name}+吃粮食`
-    }
-}
-
-class Cat extends Animal {
-    constructor(name: string) {
-        super(name)
-    }
-    eat() {
-        return `${this.name}+吃老鼠`
-    }
-}
-
-
-
-/* 抽象方法 */
-//typescript中的抽象类，它是可以提供其他类继承的基类，不能直接被实例化
-//用abstract关键字定义抽象类和抽象方法，抽象类中其他方法可以不实现，抽象类中的抽象方法不包含具体实现并且必须在派生类中实现，
-//abstract抽象方法只能放在类里面
-//抽象类和抽象方法用来定义标准（如Animal这个类要求它的子类必须包含eat方法）
-
-abstract class Animall {
-    public name: string;
-    constructor(name: string) {
-        this.name = name
-    }
-    abstract eatt(): any
-}
-
-// var a = new Animall() 错误的写法
-
-class Dogg extends Animall {
-    constructor(name: string) {
-        super(name)
-    }
-    eatt() {
         console.log(this.name + '吃狗粮')
     }
 }
-
-var dog = new Dogg('旺财');
-dog.eatt();
-
-class Catt extends Animall {
+class Cat implements Animal {
+    name: string;
     constructor(name: string) {
-        super(name)
+        this.name = name;
+    };
+    eat(food: string) {
+        console.log(this.name + food)
     }
-    eatt() {
-        console.log(this.name + '吃老鼠')
+}
+var d = new Dogs('小黑')
+var c = new Cat('小花')
+console.log(d.eat(), c.eat('吃老鼠'))
+
+
+/* //5.接口扩展(继承) */
+interface Animall {
+    eat(): void;
+}
+
+interface Person extends Animal {
+    work(): void;
+}
+
+class Web implements Person {
+    public name: string;
+    constructor(name: string) {
+        this.name = name;
+    }
+    eat() {
+        console.log(this.name + '喜欢吃馒头')
+    }
+    work() {
+        console.log(this.name + '写代码')
     }
 }
 
-var cat = new Catt('猫猫');
-cat.eatt();
+class Programmer {
+    public name: string;
+    constructor(name: string) {
+        this.name = name;
+    }
+    coding(code: string) {
+        console.log(this.name + code)
+    }
+}
+
+class Webber extends Programmer implements Person {
+    constructor(name: string) {
+        super(name)  //派生类的构造器里必须包含super()
+    }
+    eat() {
+        console.log(this.name + '喜欢吃馒头')
+    }
+    work() {
+        console.log(this.name + '写ts代码')
+    }
+}
+
+var w = new Web('小李')
+var ww = new Webber('小华')
+console.log(w.eat(), ww.work())
+
+
