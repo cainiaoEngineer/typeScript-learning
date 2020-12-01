@@ -2,8 +2,8 @@
 /*
  * @Author: your name
  * @Date: 2020-11-27 13:25:17
- * @LastEditTime: 2020-11-30 14:16:53
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-12-01 10:40:51
+ * @LastEditors: zqh
  * @Description: In User Settings Edit
  * @FilePath: \typescript_demo\tsdemo08--泛型接口，泛型类接口\index.ts
  */

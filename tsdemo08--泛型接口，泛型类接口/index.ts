@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-11-27 13:25:17
- * @LastEditTime: 2020-11-30 14:16:53
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-12-01 10:40:51
+ * @LastEditors: zqh
  * @Description: In User Settings Edit
  * @FilePath: \typescript_demo\tsdemo08--泛型接口，泛型类接口\index.ts
  */
@@ -32,7 +32,7 @@ setData('name', '张三');
     泛型接口
 */
 //第一种定义方法(在调用方法的时候规定类型)
-interface ConfigFn {
+interface ConfigFn { //此接口属于函数接口
     <T>(value: T): T;
 }
 
@@ -48,7 +48,7 @@ getData<string>('123') //在调用方法的时候规定类型
 getData1<number>(123)
 
 //第二种方法(在定义方法时规定类型) 
-interface ConfigFnn<T> {
+interface ConfigFnn<T> {  //这个接口属于函数接口
     (value: T): T;
 }
 

@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-11-30 16:12:23
- * @LastEditTime: 2020-11-30 17:50:38
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-12-01 10:38:40
+ * @LastEditors: huangl
  * @Description: In User Settings Edit
  * @FilePath: \typescript_demo\tsdemo10--类型、接口、类、泛型的综合应用\index.ts
  */
