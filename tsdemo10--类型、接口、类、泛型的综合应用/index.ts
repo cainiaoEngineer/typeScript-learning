@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-11-30 16:12:23
- * @LastEditTime: 2020-12-01 10:38:40
- * @LastEditors: huangl
+ * @LastEditTime: 2020-12-02 13:57:59
+ * @LastEditors: zqh
  * @Description: In User Settings Edit
  * @FilePath: \typescript_demo\tsdemo10--类型、接口、类、泛型的综合应用\index.ts
  */
@@ -15,79 +15,76 @@
         2：泛型： 通俗理解：泛型就是解决类，接口 、方法的复用性
 */
 
-interface DBI<T>{
-    add(info: T): boolean;
-    update(info: T, id: number): boolean;
-    delete(id: number): boolean;
-    get(id: number): any[];
+interface DBI<T> {
+  add(info: T): boolean
+  update(info: T, id: number): boolean
+  delete(id: number): boolean
+  get(id: number): any[]
 }
 
 //定义一个操作mysql数据库的类
-class MysqlDb<T> implements DBI<T>{
-    add(info: T): boolean {
-        console.log(info)
-       return true
-    }
-    update(info: T, id: number): boolean {
-        throw new Error("Method not implemented.");
-    }
-    delete(id: number): boolean {
-        throw new Error("Method not implemented.");
-    }
-    get(id: number): any[] {
-        throw new Error("Method not implemented.");
-    }
-    
+class MysqlDb<T> implements DBI<T> {
+  add(info: T): boolean {
+    console.log(info)
+    return true
+  }
+  update(info: T, id: number): boolean {
+    throw new Error('Method not implemented.')
+  }
+  delete(id: number): boolean {
+    throw new Error('Method not implemented.')
+  }
+  get(id: number): any[] {
+    throw new Error('Method not implemented.')
+  }
 }
 
 //定义一个操作mssql的类
-class MssqlDb<T> implements DBI<T>{
-    constructor() {
-        console.log('数据库建立连接')
-    }
-    add(info: T): boolean {
-        console.log(info)
-        return true
-    }
-    update(info: T, id: number): boolean {
-        throw new Error("Method not implemented.");
-    }
-    delete(id: number): boolean {
-        throw new Error("Method not implemented.");
-    }
-    get(id: number): any[] {
-        var list = [
-            {
-                title: 'xxx',
-                desc: 'xxx12'
-            },
-            {
-                title: 'xxx',
-                desc: 'xxx12'
-            }
-        ];
-        return list
-    }
-    
+class MssqlDb<T> implements DBI<T> {
+  constructor() {
+    console.log('数据库建立连接')
+  }
+  add(info: T): boolean {
+    console.log(info)
+    return true
+  }
+  update(info: T, id: number): boolean {
+    throw new Error('Method not implemented.')
+  }
+  delete(id: number): boolean {
+    throw new Error('Method not implemented.')
+  }
+  get(id: number): any[] {
+    var list = [
+      {
+        title: 'xxx',
+        desc: 'xxx12',
+      },
+      {
+        title: 'xxx',
+        desc: 'xxx12',
+      },
+    ]
+    return list
+  }
 }
 
 //操作用户表 定义一个User类和数据表做映射
-class User{
-    username: string | undefined;
-    password: string | undefined;
+class User {
+  username: string | undefined
+  password: string | undefined
 }
 
-var u = new User();
-u.username = '张三2';
-u.password = '123456';
+var u = new User()
+u.username = '张三2'
+u.password = '123456'
 
-var oMysql = new MysqlDb<User>();//类作为参数来约束数据传入的类型
-oMysql.add(u);
+var oMysql = new MysqlDb<User>() //类作为参数来约束数据传入的类型
+oMysql.add(u)
 
-var oMssql = new MssqlDb<User>();
-oMssql.add(u);
+var oMssql = new MssqlDb<User>()
+oMssql.add(u)
 
 //获取User表 id=4的数据
-var data = oMssql.get(4);
+var data = oMssql.get(4)
 console.log(data)
-

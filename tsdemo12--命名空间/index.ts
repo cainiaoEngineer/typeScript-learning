@@ -2,12 +2,12 @@
  * @Author: zqh
  * @Date: 2020-12-01 15:38:45
  * @LastEditors: zqh
- * @LastEditTime: 2020-12-01 16:31:39
+ * @LastEditTime: 2020-12-02 14:33:45
  * @Description: file content
  * @FilePath: \typescript_demo\tsdemo12--命名空间\index.ts
  */
 
- /* 命名空间：
+/* 命名空间：
       在代码量较大的情况下，为了避免各种变量命名冲突，可将相似功能的函数、类、接口等放在命名空间内
       同JAVA的包，Net的命名空间一样，Typescript的命名空间可以将代码包裹起来，只对外暴露需要在外部访问的对象。
       命名空间内的对象通过export向外暴露
@@ -18,7 +18,7 @@
     这篇幅的代码就是把命名空间封装为模块，通过export暴露，通过import导入
  */
 
-import {A,B} from './modules/animal'
+import { A, B } from './modules/animal'
 
 var d = new A.Dogs('狼狗')
 d.eat()

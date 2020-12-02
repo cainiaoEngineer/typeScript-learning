@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-11-10 10:47:42
- * @LastEditTime: 2020-11-10 15:09:51
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2020-12-02 14:32:35
+ * @LastEditors: zqh
  * @Description: In User Settings Edit
  * @FilePath: \typescript_demo\tsdemo03--函数\index.ts
  */
@@ -15,7 +15,7 @@ function run(): string {
 }
 /* 函数表达式法 */
 var func = function (): number {
-  return 123;
+  return 123
 }
 
 /* ts中定义方法传参 */
@@ -26,7 +26,7 @@ function getInfo(name: string, age: number): string {
 var getInfo1 = function (name: string, age: number): string {
   return `${name}--${age}`
 }
-console.log('getInfo', (getInfo('zu', 22)))
+console.log('getInfo', getInfo('zu', 22))
 
 //没有返回值
 function run1(): void {
@@ -50,7 +50,7 @@ console.log('getInfo3', getInfo3(22))
 /* 剩余参数 */
 //三点运算符，接收形参传过来的值
 function sum(...result: number[]): number {
-  var sum = 0;
+  var sum = 0
   for (var i = 0; i < result.length; i++) {
     sum += result[i]
   }
@@ -59,7 +59,7 @@ function sum(...result: number[]): number {
 
 //写法二
 function sum1(a: number, ...result: number[]): number {
-  var sum = 0;
+  var sum = 0
   for (var i = 0; i < result.length; i++) {
     sum += result[i]
   }
@@ -68,13 +68,11 @@ function sum1(a: number, ...result: number[]): number {
 
 console.log('sum', sum(2, 1, 2, 3, 4, 5, 6))
 
-
-
 /* 函数的重载 */
 //ts为了兼容es5和es6 ，重载的写法和java有所区别, 重载只能写一种实现
-function getInfo4(name: string): string;
+function getInfo4(name: string): string
 
-function getInfo4(name: string, age: number): string;
+function getInfo4(name: string, age: number): string
 
 // function getInfo4(str: any): any {
 //   if (typeof str == 'string') {
@@ -92,15 +90,14 @@ function getInfo4(name: any, age?: any): any {
   }
 }
 
-console.log(getInfo4('张三')); //正确写法
+console.log(getInfo4('张三')) //正确写法
 // console.log(getInfo4(22)); //错误写法
 console.log(getInfo4('张三', 22))
 // console.log(getInfo4(true)) //错误写法
 
-
 /* 箭头函数 */
 
-setTimeout(() => { //箭头函数里的this指向上下文
+setTimeout(() => {
+  //箭头函数里的this指向上下文
   alert('run')
 }, 1000)
-

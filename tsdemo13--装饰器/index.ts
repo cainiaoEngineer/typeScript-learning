@@ -2,7 +2,7 @@
  * @Author: zqh
  * @Date: 2020-12-01 16:35:38
  * @LastEditors: zqh
- * @LastEditTime: 2020-12-01 16:58:19
+ * @LastEditTime: 2020-12-02 15:29:44
  * @Description: file content
  * @FilePath: \typescript_demo\tsdemo13--装饰器\index.ts
  */
@@ -15,18 +15,45 @@
 */
 
 /* 1.类装饰器：在类声明之前被声明（紧靠着类声明）。类装饰器应用于类构造函数，可以用来监视，修改或替换类定义。传入一个参数 */
-//装饰器
-function logClass(params:any) {
-  console.log(params)
+//普通装饰器
+function logClass(params: any) {
+  // 注意：这里必须加any类型，表示class是any类型
+  console.log(params) //表示调用装饰器
+  //params就是当前类
+  params.prototype.apiUrl = '在装饰器里动态扩展的属性'
+  params.prototype.run = function () {
+    console.log('我是一个run方法')
+  }
 }
 
 @logClass
-class HttpClient{
-  constructor() {
-    
-  }
-  getData(){
-    
-  }
-  
+class HttpClient {
+  constructor() {}
+  getData() {}
 }
+
+var http: any = new HttpClient()
+console.log(http.apiUrl)
+http.run()
+
+/* 1.2 类装饰器：装饰器工厂（可传参） */
+function logClass1(params: string) {
+  return function (target: any) {
+    console.log(target, params)
+    target.prototype.apiUrl = params
+  }
+}
+
+@logClass1('www.baidu.com')
+class HttpClient1 {
+  constructor() {}
+  getData() {}
+}
+
+var h: any = new HttpClient1()
+console.log(h.apiUrl)
+
+/* 1.3 类装饰器 
+  下面是一个重载构造函数的例子，类装饰器表达式会在运行时当作函数被调用，类的构造函数作为其唯一的参数
+  如果类装饰器返回一个值，它会使用提供的构造函数来替换类的声明
+  */
